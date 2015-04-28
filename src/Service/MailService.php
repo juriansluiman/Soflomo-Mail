@@ -192,23 +192,19 @@ class MailService implements MailServiceInterface
             }
         }
 
-        // We only need to set the HTML view
-        if (!array_key_exists('template_text', $options)) {
-            $message->getHeaders()->addHeaderLine('Content-Type', 'text/html');
-            $message->setBody($html);
-            return;
-        }
+        $body = new MimeMessage;
 
-        $text = $this->getRenderer()->render($options['template_text'], $variables);
+        // only set text part if applicable
+        if (array_key_exists('template_text', $options)) {
+            $text = $this->getRenderer()->render($options['template_text'], $variables);
+            $textPart = new MimePart($text);
+            $textPart->type = 'text/plain';
+            $body->addPart($textPart);
+        }
 
         $htmlPart = new MimePart($html);
         $htmlPart->type = 'text/html';
-
-        $textPart = new MimePart($text);
-        $textPart->type = 'text/plain';
-
-        $body = new MimeMessage;
-        $body->setParts(array($textPart, $htmlPart));
+        $body->addPart($htmlPart);
 
         $message->setBody($body);
     }

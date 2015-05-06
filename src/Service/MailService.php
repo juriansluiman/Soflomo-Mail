@@ -40,15 +40,16 @@
 namespace Soflomo\Mail\Service;
 
 use Soflomo\Mail\Exception\InvalidArgumentException;
-use Soflomo\Mail\Exception\RuntimeException;
 use Soflomo\Mail\Exception\NotImplementedException;
 
 use Zend\Mime\Part    as MimePart;
 use Zend\Mime\Message as MimeMessage;
+use Zend\Mime\Mime;
 
 use Zend\Mail\Message;
 use Zend\Mail\Transport\TransportInterface;
 use Zend\View\Renderer\RendererInterface;
+use Zend\Mime\Part;
 
 /**
  * Mail service class
@@ -218,9 +219,28 @@ class MailService implements MailServiceInterface
      */
     protected function addAttachments(Message $message, array $options)
     {
-        throw new NotImplementedException(
-            'Attachments are not supported yet (why don\'t you send a pull request?)'
-        );
+        $body = $message->getBody();
+        foreach ($options['attachments'] as $name => $attachmentPath) {
+            $fileContent = fopen($attachmentPath, 'r');
+            $attachment = new Part($fileContent);
+            $attachment->filename = $name;
+            $attachment->type = $this->getMimeType($attachmentPath);
+            $attachment->disposition = Mime::DISPOSITION_ATTACHMENT;
+            $attachment->encoding    = Mime::ENCODING_BASE64;
+            $body->addPart($attachment);
+        }
+    }
+
+    /**
+     * Find mimetype of specified file
+     *
+     * @param string $filePath
+     * @return mixed
+     */
+    protected function getMimeType($filePath)
+    {
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        return finfo_file($finfo, $filePath);
     }
 
     /**

@@ -159,8 +159,7 @@ $service->send(array(
 
 ### Add attachments
 
-Attachment support is planned and not yet implemented. Attachments will be send
-via the `attachments` key and should be an associative array where key is the filename to be used in the email
+Attachments is sent via the `attachments` key and should be an associative array where key is the filename to be used in the email
 and value is the absolute path to the attachment.
 
 ```php

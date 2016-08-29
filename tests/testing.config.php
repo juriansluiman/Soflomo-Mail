@@ -37,12 +37,12 @@
  * @license     http://www.opensource.org/licenses/bsd-license.php  BSD License
  */
 
-return array(
-    'soflomo_mail' => array(
-        'message'    => array(
+return [
+    'soflomo_mail' => [
+        'message' => [
             'from'      => '',
             'from_name' => '',
             'encoding'  => 'UTF-8',
-        ),
-    ),
-);
+        ],
+    ],
+];

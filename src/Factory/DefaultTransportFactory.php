@@ -94,11 +94,11 @@ class DefaultTransportFactory implements FactoryInterface
      * This mimicks "template" behaviour. Example code to show result:
      *
      * <code>
-     * $options   => array('my_key' => '%FOO%');
-     * $variables => array('%FOO%'  => 'Bar');
+     * $options   => ['my_key' => '%FOO%'];
+     * $variables => ['%FOO%'  => 'Bar'];
      *
      * // Result:
-     * array('my_key' => 'Bar');
+     * ['my_key' => 'Bar'];
      * </code>
      *
      * @param  array $options     Original base array

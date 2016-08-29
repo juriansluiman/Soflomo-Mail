@@ -37,38 +37,38 @@
  * @license     http://www.opensource.org/licenses/bsd-license.php  BSD License
  */
 
-return array(
-    'soflomo_mail' => array(
-        'message'    => array(
-            'encoding'  => 'UTF-8',
-        ),
-        'transport' => array(
-            'type'    => null,
-        ),
-    ),
-    'service_manager' => array(
-        'aliases' => array(
+return [
+    'soflomo_mail'    => [
+        'message'   => [
+            'encoding' => 'UTF-8',
+        ],
+        'transport' => [
+            'type' => null,
+        ],
+    ],
+    'service_manager' => [
+        'aliases'      => [
             'Soflomo\Mail\Renderer'  => 'ViewRenderer',
             'Soflomo\Mail\Transport' => 'Soflomo\Mail\DefaultTransport',
             'Soflomo\Mail\Message'   => 'Soflomo\Mail\DefaultMessage',
-        ),
-        'factories' => array(
+        ],
+        'factories'    => [
             'Soflomo\Mail\DefaultTransport'    => 'Soflomo\Mail\Factory\DefaultTransportFactory',
             'Soflomo\Mail\DefaultMessage'      => 'Soflomo\Mail\Factory\DefaultMessageFactory',
             'Soflomo\Mail\Service\MailService' => 'Soflomo\Mail\Factory\MailServiceFactory',
-        ),
-        'initializers' => array(
+        ],
+        'initializers' => [
             'mail_transport' => 'Soflomo\Mail\Service\TransportAwareInitializer',
             'mail_message'   => 'Soflomo\Mail\Service\MessageAwareInitializer',
-        ),
-        'shared' => array(
+        ],
+        'shared'       => [
             'Soflomo\Mail\DefaultMessage' => false,
-        ),
-    ),
+        ],
+    ],
 
-    'controller_plugins' => array(
-        'factories' => array(
+    'controller_plugins' => [
+        'factories' => [
             'email' => 'Soflomo\Mail\Factory\EmailControllerPluginFactory',
-        ),
-    ),
-);
+        ],
+    ],
+];

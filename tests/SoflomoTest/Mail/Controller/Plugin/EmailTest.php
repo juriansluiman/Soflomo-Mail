@@ -56,8 +56,8 @@ class EmailTest extends TestCase
 
     public function testInvokingPluginProxiesToService()
     {
-        $options   = array('foo' => 'bar');
-        $variables = array('baz' => 'bat');
+        $options   = ['foo' => 'bar'];
+        $variables = ['baz' => 'bat'];
         $message   = new Message;
 
         $this->service->expects($this->once())

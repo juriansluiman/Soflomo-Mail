@@ -46,7 +46,7 @@ if (
 
 /* @var $loader \Composer\Autoload\ClassLoader */
 $loader->add('SoflomoTest\\Mail\\', __DIR__);
-$loader->addClassMap(array('Soflomo\Mail\Module' => __DIR__ . '/../Module.php'));
+$loader->addClassMap(['Soflomo\Mail\Module' => __DIR__ . '/../Module.php']);
 
 if (!$config = @include __DIR__ . '/TestConfiguration.php') {
     $config = require __DIR__ . '/TestConfiguration.php.dist';

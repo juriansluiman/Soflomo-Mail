@@ -60,10 +60,7 @@ return [
         'initializers' => [
             'mail_transport' => 'Soflomo\Mail\Service\TransportAwareInitializer',
             'mail_message'   => 'Soflomo\Mail\Service\MessageAwareInitializer',
-        ],
-        'shared'       => [
-            'Soflomo\Mail\DefaultMessage' => false,
-        ],
+        ]
     ],
 
     'controller_plugins' => [

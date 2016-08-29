@@ -69,11 +69,14 @@ class MessageAwareInitializerTest extends TestCase
     {
         $this->serviceManager->setInvokableClass('TestService2', 'SoflomoTest\Mail\Asset\MessageAwareService');
 
-        $instance1 = $this->serviceManager->get('TestService');
+        $instance1 = $this->serviceManager->build('TestService');
         $message1  = $instance1->getLastMessage();
 
-        $instance2 = $this->serviceManager->get('TestService2');
+        $instance2 = $this->serviceManager->build('TestService2');
         $message2  = $instance2->getLastMessage();
+
+        $equals = (spl_object_hash($instance1) === spl_object_hash($instance2));
+        $this->assertFalse($equals);
 
         $this->assertInstanceOf('Zend\Mail\Message', $message1);
         $this->assertInstanceOf('Zend\Mail\Message', $message2);

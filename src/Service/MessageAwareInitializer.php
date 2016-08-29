@@ -39,16 +39,20 @@
 
 namespace Soflomo\Mail\Service;
 
+use Interop\Container\ContainerInterface;
 use Soflomo\Mail\Mail\MessageAwareInterface;
-use Zend\ServiceManager\InitializerInterface;
+use Zend\ServiceManager\Initializer\InitializerInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 class MessageAwareInitializer implements InitializerInterface
 {
-    public function initialize($instance, ServiceLocatorInterface $serviceLocator)
+    /**
+     * @inheritdoc
+     */
+    public function __invoke(ContainerInterface $container, $instance)
     {
         if ($instance instanceof MessageAwareInterface) {
-            $message = $serviceLocator->get('Soflomo\Mail\Message');
+            $message = $container->get('Soflomo\Mail\Message');
             $instance->setMessage($message);
         }
     }

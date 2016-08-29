@@ -39,18 +39,21 @@
 
 namespace Soflomo\Mail\Service;
 
+use Interop\Container\ContainerInterface;
 use Soflomo\Mail\Mail\TransportAwareInterface;
-use Zend\ServiceManager\InitializerInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\Initializer\InitializerInterface;
 
 class TransportAwareInitializer implements InitializerInterface
 {
-    public function initialize($instance, ServiceLocatorInterface $serviceLocator)
+    /**
+     * @inheritdoc
+     */
+    public function __invoke(ContainerInterface $container, $instance)
     {
         if ($instance instanceof TransportAwareInterface) {
             static $transport;
             if (!$transport) {
-                $transport = $serviceLocator->get('Soflomo\Mail\Transport');
+                $transport = $container->get('Soflomo\Mail\Transport');
             }
 
             $instance->setTransport($transport);

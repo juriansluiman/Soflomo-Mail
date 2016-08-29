@@ -5,9 +5,14 @@ php:
   - 7.0
   - 7.1
 
+env:
+  matrix:
+    - PREFER_LOWEST="--prefer-lowest"
+    - PREFER_LOWEST=""
+
 before_script:
   - composer self-update
-  - composer install --dev --prefer-source
+  - composer update --prefer-source $PREFER_LOWEST
   - mkdir -p tests/build/logs
 
 script:

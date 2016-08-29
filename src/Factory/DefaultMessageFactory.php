@@ -39,15 +39,19 @@
 
 namespace Soflomo\Mail\Factory;
 
+use Interop\Container\ContainerInterface;
 use Zend\Mail\Message;
-use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 class DefaultMessageFactory implements FactoryInterface
 {
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    /**
+     * @inheritdoc
+     */
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $config = $serviceLocator->get('config');
+        $config = $container->get('config');
         $config = $config['soflomo_mail']['message'];
 
         $message = new Message;
@@ -63,5 +67,16 @@ class DefaultMessageFactory implements FactoryInterface
         }
 
         return $message;
+    }
+
+    /**
+     * For zend-servicemanager 2.7
+     *
+     * @param ServiceLocatorInterface $serviceLocator
+     * @return \Soflomo\Mail\Service\MailService
+     */
+    public function createService(ServiceLocatorInterface $serviceLocator)
+    {
+        return $this($serviceLocator, 'Soflomo\Mail\Message');
     }
 }

@@ -39,15 +39,19 @@
 
 namespace Soflomo\Mail\Factory;
 
-use Zend\ServiceManager\FactoryInterface;
+use Interop\Container\ContainerInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Soflomo\Mail\Exception\RuntimeException;
 
 class DefaultTransportFactory implements FactoryInterface
 {
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    /**
+     * @inheritdoc
+     */
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $config = $serviceLocator->get('config');
+        $config = $container->get('config');
         $config = $config['soflomo_mail'];
         $name   = $config['transport']['type'];
 
@@ -86,6 +90,17 @@ class DefaultTransportFactory implements FactoryInterface
         }
 
         return $transport;
+    }
+
+    /**
+     * For zend-servicemanager 2.7
+     *
+     * @param ServiceLocatorInterface $serviceLocator
+     * @return \Soflomo\Mail\Service\MailService
+     */
+    public function createService(ServiceLocatorInterface $serviceLocator)
+    {
+        return $this($serviceLocator, 'Soflomo\Mail\Transport');
     }
 
     /**

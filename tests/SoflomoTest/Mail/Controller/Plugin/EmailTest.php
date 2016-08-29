@@ -50,7 +50,7 @@ class EmailTest extends TestCase
 
     public function setUp()
     {
-        $this->service = $this->getMock('Soflomo\Mail\Service\MailServiceInterface');
+        $this->service = $this->getMockBuilder('Soflomo\Mail\Service\MailServiceInterface')->getMock();
         $this->plugin  = new Email($this->service);
     }
 

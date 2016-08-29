@@ -48,7 +48,7 @@ class EmailControllerPluginFactoryTest extends TestCase
     public function testFactoryCreatesMailService()
     {
         $serviceManager = ServiceManagerFactory::getServiceManager();
-        $service        = $this->getMock('Soflomo\Mail\Service\MailServiceInterface');
+        $service        = $this->getMockBuilder('Soflomo\Mail\Service\MailServiceInterface')->getMock();
 
         $serviceManager->setAllowOverride(true);
         $serviceManager->setService('Soflomo\Mail\Service\MailService', $service);

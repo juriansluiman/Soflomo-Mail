@@ -52,7 +52,7 @@ class MailServiceTest extends TestCase
 
     public function setUp()
     {
-        $this->renderer  = $this->getMock('Zend\View\Renderer\RendererInterface');
+        $this->renderer  = $this->getMockBuilder('Zend\View\Renderer\RendererInterface')->getMock();
         $this->transport = new SimpleTransport;
         $this->defaultOptions = array(
             'to'       => 'john@acme.org',

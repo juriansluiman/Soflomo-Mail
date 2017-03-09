@@ -39,17 +39,17 @@
 
 return array(
     'soflomo_mail' => array(
-        'message'    => array(
+        'message'   => [
             'from'      => '',
             'from_name' => '',
             'encoding'  => 'UTF-8',
-        ),
+        ],
 
         /**
          * Path to a layout file
          * Optional
          */
-        'layout' => null,
+        'layout'    => null,
 
         /**
          * Below are examples on how to setup different transports.
@@ -58,48 +58,48 @@ return array(
         /**
          * Gmail SMTP
          *
-        'transport' => array(
-            'type'    => 'smtp',
-            'options' => array(
-                'name' => 'gmail.com',
-                'host' => 'smtp.gmail.com',
-                'port' => 587,
+        'transport' => [
+            'type'      => 'smtp',
+            'options'   => [
+                'name'              => 'gmail.com',
+                'host'              => 'smtp.gmail.com',
+                'port'              => 587,
                 'connection_class'  => 'login',
-                'connection_config' => array(
+                'connection_config' => [
                     'ssl'      => 'tls',
                     'username' => '%USERNAME%',
                     'password' => '%PASSWORD%',
-                ),
-            ),
-            'variables' => array(
+                ],
+            ],
+            'variables' => [
                 'username' => '',
                 'password' => '',
-            ),
-        ),
+            ],
+        ],
         */
         /**
          * SMTP without auth.
          * Mailcatcher for example.
          *
-        'transport' => array(
+        'transport' => [
             'type'    => 'smtp',
-            'options' => array(
-                'name' => 'mailcatcher',
-                'host' => '127.0.0.1',
-                'port' => 1025,
+            'options' => [
+                'name'              => 'mailcatcher',
+                'host'              => '127.0.0.1',
+                'port'              => 1025,
                 'connection_class'  => 'smtp',
-                'connection_config' => array(
+                'connection_config' => [
                     'ssl' => null,
-                ),
-            ),
-        ),
+                ],
+            ],
+        ],
         */
         /**
          * Sendmail
          *
-        'transport' => array(
-            'type'    => 'sendmail',
-        ),
+        'transport' => [
+            'type' => 'sendmail',
+        ],
         */
     ),
 );

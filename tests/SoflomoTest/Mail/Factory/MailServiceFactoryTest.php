@@ -47,7 +47,7 @@ class MailServiceFactoryTest extends TestCase
     public function testFactoryCreatesMailService()
     {
         $serviceManager = ServiceManagerFactory::getServiceManager();
-        $renderer       = $this->getMock('Zend\View\Renderer\RendererInterface');
+        $renderer       = $this->getMockBuilder('Zend\View\Renderer\RendererInterface')->getMock();
 
         $serviceManager->setAllowOverride(true);
         $serviceManager->setInvokableClass('Soflomo\Mail\Transport', 'SoflomoTest\Mail\Asset\SimpleTransport');

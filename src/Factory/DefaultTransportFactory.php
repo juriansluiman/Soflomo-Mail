@@ -39,15 +39,19 @@
 
 namespace Soflomo\Mail\Factory;
 
-use Zend\ServiceManager\FactoryInterface;
+use Interop\Container\ContainerInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Soflomo\Mail\Exception\RuntimeException;
 
 class DefaultTransportFactory implements FactoryInterface
 {
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    /**
+     * @inheritdoc
+     */
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $config = $serviceLocator->get('config');
+        $config = $container->get('config');
         $config = $config['soflomo_mail'];
         $name   = $config['transport']['type'];
 
@@ -89,16 +93,27 @@ class DefaultTransportFactory implements FactoryInterface
     }
 
     /**
+     * For zend-servicemanager 2.7
+     *
+     * @param ServiceLocatorInterface $serviceLocator
+     * @return \Soflomo\Mail\Service\MailService
+     */
+    public function createService(ServiceLocatorInterface $serviceLocator)
+    {
+        return $this($serviceLocator, 'Soflomo\Mail\Transport');
+    }
+
+    /**
      * Replace values of an array if they match variables key
      *
      * This mimicks "template" behaviour. Example code to show result:
      *
      * <code>
-     * $options   => array('my_key' => '%FOO%');
-     * $variables => array('%FOO%'  => 'Bar');
+     * $options   => ['my_key' => '%FOO%'];
+     * $variables => ['%FOO%'  => 'Bar'];
      *
      * // Result:
-     * array('my_key' => 'Bar');
+     * ['my_key' => 'Bar'];
      * </code>
      *
      * @param  array $options     Original base array

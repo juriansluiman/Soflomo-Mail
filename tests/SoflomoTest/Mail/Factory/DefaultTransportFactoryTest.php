@@ -95,7 +95,7 @@ class DefaultTransportFactoryTest extends TestCase
         $serviceManager = ServiceManagerFactory::getServiceManager();
 
         $config  = $serviceManager->get('config');
-        $options = array('name' => 'Foo');
+        $options = ['name' => 'Foo'];
         $config['soflomo_mail']['transport']['type']    = 'Smtp';
         $config['soflomo_mail']['transport']['options'] = $options;
         $serviceManager->setAllowOverride(true);
@@ -114,8 +114,8 @@ class DefaultTransportFactoryTest extends TestCase
         $serviceManager = ServiceManagerFactory::getServiceManager();
 
         $config    = $serviceManager->get('config');
-        $options   = array('name' => '%FOO%');
-        $variables = array('foo'  => 'Bar');
+        $options   = ['name' => '%FOO%'];
+        $variables = ['foo' => 'Bar'];
         $config['soflomo_mail']['transport']['type']      = 'Smtp';
         $config['soflomo_mail']['transport']['options']   = $options;
         $config['soflomo_mail']['transport']['variables'] = $variables;
@@ -133,8 +133,8 @@ class DefaultTransportFactoryTest extends TestCase
         $serviceManager = ServiceManagerFactory::getServiceManager();
 
         $config    = $serviceManager->get('config');
-        $options   = array('connection_config' => array('foo' => '%FOO%'));
-        $variables = array('foo'  => 'Bar');
+        $options   = ['connection_config' => ['foo' => '%FOO%']];
+        $variables = ['foo' => 'Bar'];
         $config['soflomo_mail']['transport']['type']      = 'Smtp';
         $config['soflomo_mail']['transport']['options']   = $options;
         $config['soflomo_mail']['transport']['variables'] = $variables;
@@ -144,7 +144,7 @@ class DefaultTransportFactoryTest extends TestCase
 
         $transport = $serviceManager->get('Soflomo\Mail\Transport');
         $options = $transport->getOptions();
-        $this->assertEquals(array('foo' => 'Bar'), $options->getConnectionConfig());
+        $this->assertEquals(['foo' => 'Bar'], $options->getConnectionConfig());
     }
 
     public function testFactoryAllowsFqcnAsType()

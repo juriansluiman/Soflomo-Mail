@@ -57,13 +57,13 @@ class ModuleTest extends TestCase
     {
         $module   = new Module;
         $actual   = $module->getAutoloaderConfig();
-        $expected = array(
-            Loader\AutoloaderFactory::STANDARD_AUTOLOADER => array(
-                Loader\StandardAutoloader::LOAD_NS => array(
+        $expected = [
+            Loader\AutoloaderFactory::STANDARD_AUTOLOADER => [
+                Loader\StandardAutoloader::LOAD_NS => [
                     'Soflomo\Mail' => realpath(__DIR__ . '/../../../src/Mail') . '/',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
         $this->assertEquals($expected, $actual);
     }
 }

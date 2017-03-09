@@ -92,7 +92,7 @@ class MailService implements MailServiceInterface
     /**
      * {@inheritDoc}
      */
-    public function send(array $options, array $variables = array(), Message $message = null)
+    public function send(array $options, array $variables = [], Message $message = null)
     {
         if (null === $message) {
             $message = $this->getDefaultMessage();
@@ -186,10 +186,10 @@ class MailService implements MailServiceInterface
         $html = $this->getRenderer()->render($options['template'], $variables);
 
         if (array_key_exists('layout', $options)) {
-            $html = $this->getRenderer()->render($options['layout'], array('content' => $html));
+            $html = $this->getRenderer()->render($options['layout'], ['content' => $html]);
         } else {
             if (!is_null($this->layout)) {
-                $html = $this->getRenderer()->render($this->layout, array('content' => $html));
+                $html = $this->getRenderer()->render($this->layout, ['content' => $html]);
             }
         }
 

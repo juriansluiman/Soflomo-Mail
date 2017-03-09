@@ -39,16 +39,31 @@
 
 namespace Soflomo\Mail\Factory;
 
+use Interop\Container\ContainerInterface;
 use Soflomo\Mail\Controller\Plugin\Email as EmailControllerPlugin;
-use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 class EmailControllerPluginFactory implements FactoryInterface
 {
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    /**
+     * @inheritdoc
+     */
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $service = $serviceLocator->getServiceLocator()->get('Soflomo\Mail\Service\MailService');
+        $service = $container->get(\Soflomo\Mail\Service\MailService::class);
 
         return new EmailControllerPlugin($service);
+    }
+
+    /**
+     * For zend-servicemanager 2.7
+     *
+     * @param ServiceLocatorInterface $serviceLocator
+     * @return \Soflomo\Mail\Service\MailService
+     */
+    public function createService(ServiceLocatorInterface $serviceLocator)
+    {
+        return $this($serviceLocator, \Soflomo\Mail\Service\MailService::class);
     }
 }

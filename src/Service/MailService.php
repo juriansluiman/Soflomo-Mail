@@ -208,6 +208,10 @@ class MailService implements MailServiceInterface
         $body->addPart($htmlPart);
 
         $message->setBody($body);
+        
+        if($body->isMultiPart()) {
+            $message->getHeaders()->get('content-type')->setType('multipart/alternative');
+        }
     }
 
     /**

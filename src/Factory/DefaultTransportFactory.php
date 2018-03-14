@@ -40,9 +40,11 @@
 namespace Soflomo\Mail\Factory;
 
 use Interop\Container\ContainerInterface;
+use Zend\Mail\Protocol\SmtpPluginManager;
 use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Soflomo\Mail\Exception\RuntimeException;
+use Zend\ServiceManager\ServiceManager;
 
 class DefaultTransportFactory implements FactoryInterface
 {
@@ -84,9 +86,15 @@ class DefaultTransportFactory implements FactoryInterface
             }
 
             $name = $name . 'Options';
+            if (!class_exists($name)) {
+                $name = \Zend\Mail\Transport\SmtpOptions::class;
+            }
+
             $optionsClass = new $name($options);
 
             $transport->setOptions($optionsClass);
+
+            $transport->setPluginManager(new SmtpPluginManager($container, $config['transport']['smtp_manager'] ?? []));
         }
 
         return $transport;

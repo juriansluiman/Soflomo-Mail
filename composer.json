@@ -1,5 +1,5 @@
 {
-    "name": "soflomo/mail",
+    "name": "jbmchd/zf2-mail",
     "description": "Module to to ease the use of sending e-mail messages in Zend Framework 2",
     "license": "BSD-3-Clause",
     "type": "library",
